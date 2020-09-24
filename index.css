@@ -1,0 +1,190 @@
+:root {
+    --neon--c: #03DAC5;
+    --white: rgb(255, 255, 255);
+    --black: rgb(0, 0, 0);
+    --unselected: #BB86FC;
+}
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    background: var(--black);
+
+}
+
+.container {
+    position: relative;
+    background: var(--black);
+    min-height: 100vh;
+    height: 100%;
+}
+
+section{
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s;
+}
+
+.show-section{
+    opacity: 1;
+    pointer-events: all;
+}
+
+.top {
+    position: relative;
+    display: grid;
+    grid-template-columns: 100%;
+    justify-items: right;
+    align-items: center;
+}
+
+.main-logo {
+    margin: 30px;
+    max-width: 400px;
+}
+
+.rest {
+    position: relative;
+    margin: 100px auto 0 auto;
+    width: 90%;
+    color: var(--white);
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+p {
+    font-size: 2.3rem;
+}
+
+.rest-1 > p:nth-of-type(1) {
+    margin-bottom: 70px;
+}
+
+h1>span:nth-of-type(2) {
+    color: var(--neon--c);
+}
+
+button {
+    border: 1px var(--neon--c) solid;
+    border-radius: 7px;
+    font-size: 1.9rem;
+    min-width: 350px;
+    padding: 10px 40px;
+    cursor: pointer;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.rest-1 > button:nth-of-type(1), .gen-story > button:nth-of-type(1){
+    background-color: var(--neon--c);
+    color: var(--black);
+}
+
+.rest-1 > button:nth-of-type(1):hover,  .gen-story > button:nth-of-type(1):hover {
+    color: var(--neon--c);
+    background-color: var(--black);
+}
+
+.rest-1 > button:nth-of-type(2),  .gen-story > button:nth-of-type(2) {
+    color: var(--neon--c);
+    background-color: var(--black);
+}
+
+input{
+    min-width: 200px;
+    min-height: 30px;
+    padding: 10px;
+    width: 30%;
+    font-size: 1.2rem;
+}
+
+.rest-2 > input{
+    margin-top: 100px;
+}
+
+.rest-2 > img{
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+    margin-top: 60px;
+    display: none;
+}
+
+
+
+.word-puke{
+    color: var(--unselected);
+}
+
+/* .rest-3{
+    text-align: initial;
+} */
+
+pre{
+    display: inline;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.gen-story{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    width: 50%;
+    margin: 20px auto;
+    align-items: center;
+    column-gap: 20px;
+}
+
+.gen-story > button{
+    min-width: 400px;
+}
+
+
+@media(max-width: 800px){
+    html{
+        font-size: 12px;
+    }
+    .top{
+        justify-items: center;
+    }
+    .main-logo{
+        max-width: 300px;
+    }
+    .word-puke{
+        font-size: 2.0rem;
+
+    }
+    .gen-story{
+        display: grid;
+        grid-template-columns: none;
+        grid-template-rows: auto auto auto;
+        width: 90%;
+        margin: 50px auto;
+        align-items: center;
+        justify-items: center;
+        column-gap: 20px;
+    }
+    .gen-story > button{
+        min-width: 100%;
+    }
+}
+
+
+
+
+
+.selected{
+    color: #6A0DAD;
+}
+
+.show{
+    display: block!important;
+}

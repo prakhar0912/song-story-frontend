@@ -5,88 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        :root {
-            --neon--c: #03DAC5;
-            --white: rgb(255, 255, 255);
-            --black: rgb(0, 0, 0);
-        }
-
-        * {
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        body {
-            position: relative;
-            margin: 0;
-        }
-
-        .container {
-            position: relative;
-            background: var(--black);
-            min-height: 100vh;
-        }
-
-        .top {
-            position: relative;
-            display: grid;
-            grid-template-columns: 100%;
-            justify-items: right;
-            align-items: center;
-        }
-
-        .main-logo {
-            margin: 30px;
-            max-width: 400px;
-        }
-
-        .rest {
-            position: relative;
-            margin: 100px auto 0 auto;
-            width: 90%;
-            color: var(--white);
-            text-align: center;
-            font-size: 2.5rem;
-        }
-
-        p {
-            font-size: 2.3rem;
-        }
-
-        p:nth-of-type(1) {
-            margin-bottom: 70px;
-        }
-
-        h1>span:nth-of-type(2) {
-            color: var(--neon--c);
-        }
-
-        button {
-            border: 1px var(--neon--c) solid;
-            border-radius: 7px;
-            font-size: 1.9rem;
-            min-width: 350px;
-            padding: 10px 40px;
-            cursor: pointer;
-            transition: all 0.2s;
-
-        }
-
-        button:nth-of-type(1) {
-            background-color: var(--neon--c);
-            color: var(--black);
-        }
-
-        button:nth-of-type(1):hover {
-            color: var(--neon--c);
-            background-color: var(--black);
-        }
-
-        button:nth-of-type(2) {
-            color: var(--neon--c);
-            background-color: var(--black);
-        }
-    </style>
+    <link rel="stylesheet" href="index.css">
 
     <title>Song Story</title>
 </head>
@@ -97,14 +16,39 @@
             <img src="./assets/DSC Vellore Institute of Technology Light Horizontal-Logo-WHITE.png" alt=""
                 class="main-logo">
         </div>
-        <div class="rest">
-            <h1><span>Song</span><span> Story</span></h1>
-            <p>Create a story out of your favorite lyrics!</p>
-            <button>Log in with Spotify</button>
-            <p>OR</p>
-            <button>Proceed Directly</button>
-        </div>
+        <section class="section-3">
+            <div class="rest rest-3">
+                <h1><span>Select</span><span> Keywords</span><span> for the story!</span></h1>
+                <div class="word-puke">
+                </div>
+                <div class="gen-story">
+                    <button>Generate Prompt</button>
+                    <p>OR</p>
+                    <button>Create My Own Prompt</button>
+                </div>
+            </div>
+        </section>
+        <section class="section-2">
+            <div class="rest rest-2">
+                <h1><span>Enter your</span><span> favorite</span><span> Artist</span></h1>
+                <input type="text" id="fav-artist" placeholder="Your Favorite Artist">
+                <img src="./assets/Bean Eater-1s-220px.gif" alt="" class="loader">
+            </div>
+        </section>
+        <section class="section-1 show-section">
+            <div class="rest rest-1">
+                <h1><span>Song</span><span> Story</span></h1>
+                <p>Create a story out of your favorite lyrics!</p>
+                <button>Log in with Spotify</button>
+                <p>OR</p>
+                <button onclick="ProceedDirectly()">Proceed Directly</button>
+            </div>
+        </section>
+
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+    <script src="./index.js"></script>
 </body>
+
 
 </html>
