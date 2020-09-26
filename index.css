@@ -147,6 +147,132 @@ pre{
     min-width: 400px;
 }
 
+.multiple-prompts{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    column-gap: 30px;
+    row-gap: 30px;
+    font-size: 1.6rem;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.prompt{
+    color: var(--black);
+    background-color: var(--white);
+    padding: 40px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.rest-4 > button{
+    background-color: var(--neon--c);
+    margin: 30px 0;
+}
+
+.rest-5 > div > .prompt{
+    font-size: 2rem;
+    width: 80%;
+    margin: 10px auto;
+    cursor: default;
+    pointer-events: none;
+}
+
+
+.result{
+    height: 0;
+    overflow: hidden;
+    transition: height 1s;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-items: center;
+    align-items: center;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.res > p:nth-of-type(1){
+    font-size: 1.9rem;
+    color: var(--neon--c);
+    margin: 5px 0;
+}
+
+.res > p:nth-of-type(2){
+    font-size: 1.6rem;
+    color: var(--black);
+    padding: 10px 20px;
+    background-color: var(--white);
+    border-radius: 5px;
+    min-width: 100px;
+}
+
+.show-res{
+    height: 200px;
+}
+
+
+.rest-5 > div > .prompt > span::after{
+    content: " ";
+    /* display: inline; */
+    /* padding: 5px;
+    padding-left: 0; */
+}
+
+.rest-5 > div > .prompt > span{
+    content: " ";
+    /* display: inline; */
+    padding: 5px 0;
+}
+
+.type > input{
+    font-size: 1.5rem;
+    width: auto;
+}
+
+.type{
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    align-items: center;
+    /* justify-items: center; */
+    width: 70%;
+    margin: 20px auto;
+}
+
+.type > p{
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    font-size: 1.8rem;
+}
+
+.stats{
+    padding: 5px;
+    border: 1px var(--neon--c) solid;
+}
+
+.type{
+    height: 0;
+    overflow: hidden;
+    transition: height 0.5s;
+}
+
+.typeitout{
+    height: 100px;
+}
+
+.wpm{
+    color: var(--unselected);
+}
+
+.wpm > span{
+    color: var(--white);
+}
+
+.current-word { background-color: #dddddd; }
+.correct-word-c { color: #93C572; }
+.incorrect-word-c { color: #e50000; }
+.incorrect-word-bg { background-color: #e50000; }
+
 
 @media(max-width: 800px){
     html{
@@ -174,6 +300,9 @@ pre{
     }
     .gen-story > button{
         min-width: 100%;
+    }
+    .multiple-prompts{
+        grid-template-columns: 100%;
     }
 }
 

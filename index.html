@@ -16,13 +16,56 @@
             <img src="./assets/DSC Vellore Institute of Technology Light Horizontal-Logo-WHITE.png" alt=""
                 class="main-logo">
         </div>
+        <section class="section-5">
+            <div class="rest rest-5">
+                <div class="norm">
+                    <div class="prompt"></div>
+                    <div class="type">
+                        <p class="stats time">0:00</p>
+                        <input type="text" id="typebox" onkeyup="typingTest(event)">
+
+                        <p class="stats wpm"><span>0</span><span> WPM</span></p>
+                    </div>
+                    <div class="result">
+                        <div class="res">
+                            <p>WPM</p>
+                            <p>23</p>
+                        </div>
+                        <div class="res">
+                            <p>Accuracy</p>
+                            <p>23</p>
+                        </div>
+                        <div class="res">
+                            <p>Incorrect</p>
+                            <p>23</p>
+                        </div>
+
+                    </div>
+                    <div class="gen-story">
+                        <button>Create New Story</button>
+                        <p>OR</p>
+                        <button onclick="typeItOut(this)">Type it Out</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-4">
+            <div class="rest rest-4">
+                <h1><span>Select a</span><span> prompt</span><span> for the story!</span></h1>
+                <div class="multiple-prompts">
+
+                </div>
+                <button onclick="storyTime()">Story Time!</button>
+            </div>
+        </section>
         <section class="section-3">
             <div class="rest rest-3">
                 <h1><span>Select</span><span> Keywords</span><span> for the story!</span></h1>
                 <div class="word-puke">
                 </div>
                 <div class="gen-story">
-                    <button>Generate Prompt</button>
+                    <button onclick="genPrompt()">Generate Prompt</button>
                     <p>OR</p>
                     <button>Create My Own Prompt</button>
                 </div>
