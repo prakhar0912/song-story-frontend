@@ -30,6 +30,7 @@ section{
     opacity: 0;
     pointer-events: none;
     transition: opacity 1s;
+    display: none;
 }
 
 .show-section{
@@ -268,6 +269,10 @@ pre{
     color: var(--white);
 }
 
+.show-section-display{
+    display: block;
+}
+
 .current-word { background-color: #dddddd; }
 .correct-word-c { color: #93C572; }
 .incorrect-word-c { color: #e50000; }
@@ -304,6 +309,23 @@ pre{
     .multiple-prompts{
         grid-template-columns: 100%;
     }
+    .type{
+        margin: 30px auto;
+        width: 100%;
+        grid-template-columns: none;
+        grid-template-rows: auto auto auto;
+        row-gap: 20px;
+    }
+    .typeitout{
+        height: 200px;
+    }
+    .result{
+        grid-template-columns: none;
+        grid-template-rows: auto auto auto;
+    }
+    .show-res{
+        height: 400px
+    }    
 }
 
 

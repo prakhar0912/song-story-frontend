@@ -8,9 +8,12 @@ let ProceedDirectly = () => {
     gsap.to(".rest-1 > p:nth-of-type(2)", { x: -2000, duration: 1 });
     gsap.to(".rest-1 > button:nth-of-type(1)", { x: -2000, duration: 1 });
     gsap.to(".rest-1 > button:nth-of-type(2)", { x: -2000, duration: 1 });
+    sections[1].classList.add("show-section-display")
     setTimeout(() => {
         sections[1].classList.add("show-section");
         sections[0].classList.remove("show-section");
+        sections[0].classList.remove("show-section-display")
+
     }, 1000)
 
 }
@@ -125,9 +128,11 @@ favArtist.addEventListener('keyup', ({ key }) => {
 let showKeywords = () => {
     gsap.to(".rest-2 > h1", { x: -2000, duration: 1 });
     gsap.to(".rest-2 > input", { x: 2000, duration: 1 });
+    sections[2].classList.add("show-section-display")
     setTimeout(() => {
         sections[2].classList.add("show-section");
         sections[1].classList.remove("show-section");
+        sections[1].classList.remove("show-section-display")
         let divs = document.querySelectorAll(".word-puke > div");
         let t1 = gsap.timeline();
         for (let i = 0; i < divs.length; i++) {
@@ -157,9 +162,12 @@ let showPrompt = () => {
     gsap.to(".rest-3 > h1", { x: -2000, duration: 1 });
     gsap.to(".rest-3 > .gen-story", { x: 2000, duration: 1 });
     gsap.to(".rest-3 > .word-puke", { opacity: 0, duration: 1 });
+    sections[3].classList.add("show-section-display")
     setTimeout(() => {
         sections[3].classList.add("show-section");
         sections[2].classList.remove("show-section");
+        sections[2].classList.remove("show-section-display")
+
     }, 1000)
 }
 
@@ -188,9 +196,11 @@ let showStory = () => {
     gsap.to(".rest-4 > h1", { x: -2000, duration: 1 });
     gsap.to(".rest-4 > button", { x: 2000, duration: 1 });
     gsap.to(".rest-4 > .multiple-prompts", { opacity: 0, duration: 1 });
+    sections[4].classList.add("show-section-display")
     setTimeout(() => {
         sections[4].classList.add("show-section");
         sections[3].classList.remove("show-section");
+        sections[3].classList.remove("show-section-display")
     }, 1000)
 }
 
