@@ -214,15 +214,13 @@ pre{
 
 .rest-5 > div > .prompt > span::after{
     content: " ";
-    /* display: inline; */
-    /* padding: 5px;
-    padding-left: 0; */
 }
 
 .rest-5 > div > .prompt > span{
-    content: " ";
     /* display: inline; */
     padding: 5px 0;
+    padding-left: 5px;
+    border-radius: 5px;
 }
 
 .type > input{
