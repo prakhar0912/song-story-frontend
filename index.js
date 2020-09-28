@@ -151,10 +151,20 @@ let genPrompt = () => {
     for (let i = 0; i < textArray.length; i++) {
         let prompt = document.createElement("div");
         prompt.classList.add("prompt");
+        prompt.setAttribute("onclick", "selectPrompt(this)");
         prompt.innerHTML = textArray[i];
         promptDiv.appendChild(prompt);
     }
     showPrompt();
+}
+
+
+let selectPrompt = (ele) => {
+    let prompts = document.querySelectorAll(".multiple-prompts > .prompt");
+    for (let i = 0; i < prompts.length; i++) {
+        if (prompts[i].classList[1] == "selected-prompt" && ele != prompts[i]) return;
+    }
+    ele.classList.toggle("selected-prompt")
 }
 
 
@@ -171,22 +181,36 @@ let showPrompt = () => {
     }, 1000)
 }
 
-let storyTime = () => {
-    let text = `okay so this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now`
-    let textArray = text.split(" ");
-    let storyDiv = document.querySelector(".rest-5 > div > .prompt");
-    for (let i = 0; i < textArray.length; i++) {
-        let span = document.createElement("span");
-        if (i == 0) {
-            span.classList.add("current-word");
+let storyTime = (a) => {
+    let prompts = document.querySelectorAll(".multiple-prompts > .prompt");
+    let flag = 0;
+    for (let i = 0; i < prompts.length; i++) {
+        if (prompts[i].classList[1] == "selected-prompt") {
+            flag++;
         }
-        if (i == textArray.length - 1) {
-            span.classList.add("last-word");
-        }
-        span.innerHTML = textArray[i];
-        storyDiv.appendChild(span)
     }
-    showStory();
+    if (flag != 0) {
+        let text = `okay so this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now`
+        let textArray = text.split(" ");
+        let storyDiv = document.querySelector(".rest-5 > div > .prompt");
+        for (let i = 0; i < textArray.length; i++) {
+            let span = document.createElement("span");
+            if (i == 0) {
+                span.classList.add("current-word");
+            }
+            if (i == textArray.length - 1) {
+                span.classList.add("last-word");
+            }
+            span.innerHTML = textArray[i];
+            storyDiv.appendChild(span)
+        }
+        if (a) {
+            showStory2();
+        }
+        else {
+            showStory();
+        }
+    }
 }
 
 
@@ -400,8 +424,48 @@ let removeResult = () => {
 window.$("#typebox")[0].value = "";
 
 
+let myOwnPrompt = () => {
+    let keysArray = text.split(" ");
+    let keyDiv = document.querySelector(".keys");
+    for (let i = 0; i < keysArray.length; i++) {
+        let p = document.createElement("p");
+        p.innerHTML = keysArray[i];
+        keyDiv.appendChild(p);
+    }
+    showMyOwnPrompt();
+}
 
 
+
+let showMyOwnPrompt = () => {
+    gsap.to(".rest-3 > h1", { x: -2000, duration: 1 });
+    gsap.to(".rest-3 > .gen-story", { x: 2000, duration: 1 });
+    gsap.to(".rest-3 > .word-puke", { opacity: 0, duration: 1 });
+    sections[5].classList.add("show-section-display")
+    setTimeout(() => {
+        sections[5].classList.add("show-section");
+        sections[2].classList.remove("show-section");
+        sections[2].classList.remove("show-section-display")
+
+    }, 1000)
+}
+
+let showStory2 = () => {
+    gsap.to(".rest-4-5 > div > h1", { x: 2000, duration: 1 });
+    gsap.to(".rest-4-5 > div > div > .left", { x: -2000, duration: 1 });
+    gsap.to(".rest-4-5 > div > div > .right", { x: 2000, duration: 1 });
+    sections[4].classList.add("show-section-display")
+    setTimeout(() => {
+        sections[4].classList.add("show-section");
+        sections[5].classList.remove("show-section");
+        sections[5].classList.remove("show-section-display")
+    }, 1000)
+}
+
+let reset = () => {
+    console.log("here")
+    location.reload();
+}
 
 
 

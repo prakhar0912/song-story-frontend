@@ -158,12 +158,23 @@ pre{
     margin: 0 auto;
 }
 
+
 .prompt{
     color: var(--black);
     background-color: var(--white);
     padding: 40px;
     border-radius: 10px;
     cursor: pointer;
+}
+
+.multiple-prompts > .prompt:hover{
+    background-color: var(--unselected);
+    color: var(--black);
+}
+
+.selected-prompt{
+    background-color: var(--unselected);
+    color: var(--black);
 }
 
 .rest-4 > button{
@@ -270,6 +281,51 @@ pre{
 .show-section-display{
     display: block;
 }
+
+.grid-div{
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+
+.rest-4-5 > div > h1{
+    font-size: 2.7rem;
+    width: 80%;
+
+}
+
+.grid-div > .right > h1{
+    margin-top: 0;
+    color: var(--neon--c);
+    font-size: 2.5rem;
+} 
+
+.keys > p{
+    font-size: 1.7rem;
+}
+
+.left > textarea{
+    min-height: 50%;
+    min-width: 70%;
+    border-radius: 7px;
+    padding: 25px;
+    font-size: 1.8rem;
+    margin: 20px auto;
+}
+
+.left > button{
+    background-color: var(--neon--c);
+    color: var(--black);
+    margin: 30px auto;
+
+}
+
+.left > button:hover{
+    color: var(--neon--c);
+    background-color: var(--black);
+}
+
+
+
 
 .current-word { background-color: #dddddd; }
 .correct-word-c { color: #93C572; }

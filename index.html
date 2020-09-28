@@ -16,6 +16,25 @@
             <img src="./assets/DSC Vellore Institute of Technology Light Horizontal-Logo-WHITE.png" alt=""
                 class="main-logo">
         </div>
+        <section class="section-4-5">
+            <div class="rest rest-4-5">
+                <div class="left">
+                    <h1><span>Write a</span><span> Prompt</span><span> for the story!</span></h1>
+                    <div class="grid-div">
+                        <div class="left">
+                            <textarea name="" id="" cols="30" rows="10" class="createPrompt"></textarea>
+                            <button class="" onclick="storyTime(1)">Story Time!</button>
+                        </div>
+                        <div class="right">
+                            <h1>Keywords</h1>
+                            <div class="keys"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
         <section class="section-5">
             <div class="rest rest-5">
                 <div class="norm">
@@ -42,7 +61,7 @@
 
                     </div>
                     <div class="gen-story">
-                        <button>Create New Story</button>
+                        <button onclick="reset()">Create New Story</button>
                         <p>OR</p>
                         <button onclick="typeItOut(this)">Type it Out</button>
                     </div>
@@ -67,7 +86,7 @@
                 <div class="gen-story">
                     <button onclick="genPrompt()">Generate Prompt</button>
                     <p>OR</p>
-                    <button>Create My Own Prompt</button>
+                    <button onclick="myOwnPrompt()">Create My Own Prompt</button>
                 </div>
             </div>
         </section>
