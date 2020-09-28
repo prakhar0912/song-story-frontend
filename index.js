@@ -182,11 +182,16 @@ let showPrompt = () => {
 }
 
 let storyTime = (a) => {
-    let prompts = document.querySelectorAll(".multiple-prompts > .prompt");
     let flag = 0;
-    for (let i = 0; i < prompts.length; i++) {
-        if (prompts[i].classList[1] == "selected-prompt") {
-            flag++;
+    if (a) {
+        flag = 1;
+    }
+    else {
+        let prompts = document.querySelectorAll(".multiple-prompts > .prompt");
+        for (let i = 0; i < prompts.length; i++) {
+            if (prompts[i].classList[1] == "selected-prompt") {
+                flag++;
+            }
         }
     }
     if (flag != 0) {
