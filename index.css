@@ -331,11 +331,14 @@ pre{
 
 .current-word { background-color: #dddddd; }
 .correct-word-c { color: #93C572; }
-.incorrect-word-c { color: #e50000; }
-.incorrect-word-bg { background-color: #e50000; }
+.incorrect-word-c { color: #ff4646ad; }
+.incorrect-word-bg { background-color: #ff2323f3; }
 
 
-@media(max-width: 800px){
+
+
+
+@media(max-width: 1000px){
     html{
         font-size: 12px;
     }

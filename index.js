@@ -1,3 +1,5 @@
+let api = "http://84333bbe8832.ngrok.io";
+
 let sections = document.querySelectorAll("section");
 sections = [].slice.call(sections, 0).reverse();
 
@@ -19,36 +21,86 @@ let ProceedDirectly = () => {
 }
 
 
-let text = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius, temporibus dolores ipsum quas nam unde neque ducimus";
+let texta = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius, temporibus dolores ipsum quas nam unde neque ducimus";
+
 
 let favArtist = document.querySelector("#fav-artist");
 let ArtistSend = () => {
     //send the artist to the backend
+    var requestOptions = {
+        method: 'GET',
+        // body: JSON.stringify(raw),
+        redirect: 'follow'
+    };
     let loader = document.querySelector(".rest-2 > .loader");
     console.log(loader)
     loader.classList.add("show");
-    setTimeout(() => {
-        loader.classList.remove("show");
-        if (window.innerWidth > 800) {
-            populateKeywords(5, 6, 4, 3, 5, 4);
 
-        }
-        else {
-            populateKeywords(3, 4, 2, 2, 4, 3);
-        }
-        showKeywords();
-    }, 500)
+    fetch(api + "/context?name=" + document.querySelector("#fav-artist").value, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result);
+            var raw = {
+                text: result["story"]
+            }
+
+            var requestOptions = {
+                method: 'POST',
+                body: JSON.stringify(raw),
+                redirect: 'follow'
+            };
+
+            fetch(api + "/keywords", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result)
+                    let phrase = result["phrase"].replace(/"/gi, "");
+                    phrase = phrase.replace(/‘/gi, "")
+                    phrase = phrase.replace(/“/gi, "")
+                    phrase = phrase.replace(/”/gi, "")
+                    phrase = phrase.replace(/-/gi, "")
+                    phrase = phrase.replace(/_/gi, "")
+                    phrase = phrase.replace(/—/gi, "")
+
+
+                    // phrase = phrase.replace(/./gi, "")
+                    phrase = phrase.replace(/’/gi, "")
+                    phrase = phrase.replace(/,/gi, "")
+
+
+                    // phrase = phrase.replace(/+/gi, "")
+                    console.log(phrase)
+                    loader.classList.remove("show");
+                    if (window.innerWidth > 800) {
+                        populateKeywords(5, 6, 4, 3, 5, 4, phrase);
+
+                    }
+                    else {
+                        populateKeywords(3, 4, 2, 2, 4, 3, phrase);
+                    }
+                    showKeywords();
+                })
+                .catch(error => console.log('error', error));
+        })
+        .catch(error => console.log('error', error));
 }
 
 let wordPuke = document.querySelector(".word-puke");
-let populateKeywords = (x, y, z, f, l, m) => {
+let populateKeywords = (x, y, z, f, l, m, text) => {
     let textArray = text.split(" ");
     let paradArray = [];
     let k = 1;
     let c = 0;
     let dummy = [];
     console.log(textArray)
-    for (let i = 0; i < textArray.length; i++) {
+    let ll;
+    if (textArray.length < 50) {
+        ll = textArray.length;
+    }
+    else {
+        ll = 50
+    }
+    for (let i = 0; i < ll; i++) {
         dummy.push(textArray[i])
         c++;
         if (k % 3 == 0 && c % x == 0) {
@@ -80,6 +132,7 @@ let populateKeywords = (x, y, z, f, l, m) => {
     }
     console.log(paradArray)
     c = 0;
+
     for (let i = 0; i < paradArray.length; i++) {
         let div = document.createElement("div");
         c++;
@@ -182,40 +235,78 @@ let showPrompt = () => {
 }
 
 let storyTime = (a) => {
-    let flag = 0;
-    if (a) {
-        flag = 1;
-    }
-    else {
-        let prompts = document.querySelectorAll(".multiple-prompts > .prompt");
-        for (let i = 0; i < prompts.length; i++) {
-            if (prompts[i].classList[1] == "selected-prompt") {
-                flag++;
+    var raw = "{\n    \"prompt\":\"The moon is actually a giant alien egg\"\n}";
+
+    var requestOptions = {
+        method: 'POST',
+        body: raw,
+        redirect: 'follow'
+    };
+
+    fetch(api + "/story", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result);
+            console.log(a)
+            let flag = 1;
+            if (a) {
+                flag = 1;
             }
-        }
-    }
-    if (flag != 0) {
-        let text = `okay so this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now`
-        let textArray = text.split(" ");
-        let storyDiv = document.querySelector(".rest-5 > div > .prompt");
-        for (let i = 0; i < textArray.length; i++) {
-            let span = document.createElement("span");
-            if (i == 0) {
-                span.classList.add("current-word");
+            else {
+                let prompts = document.querySelectorAll(".multiple-prompts > .prompt");
+                for (let i = 0; i < prompts.length; i++) {
+                    if (prompts[i].classList[1] == "selected-prompt") {
+                        flag++;
+                    }
+                }
             }
-            if (i == textArray.length - 1) {
-                span.classList.add("last-word");
+            if (flag != 0) {
+                let text = result["story"];
+                text = text.replace(/“/gi, "")
+                text = text.replace(/”/gi, "")
+                text = text.replace(/‘/gi, "")
+                text = text.replace(/-/gi, "")
+                text = text.replace(/_/gi, "")
+                text = text.replace(/—/gi, "")
+
+
+                // phrase = phrase.replace(/./gi, "")
+                text = text.replace(/’/gi, "")
+                text = text.replace(/,/gi, "")
+                let textArray = text.split(" ");
+                let storyDiv = document.querySelector(".rest-5 > div > .prompt");
+                let ll;
+                if (textArray.length < 50) {
+                    ll = textArray.length;
+                }
+                else {
+                    ll = 50
+                }
+                textArray.splice(0, 1);
+                for (let i = 0; i < ll; i++) {
+                    if (textArray[i] == " ") {
+                        continue;
+                    }
+                    let span = document.createElement("span");
+                    if (i == 0) {
+                        span.classList.add("current-word");
+                    }
+                    if (i == textArray.length - 1) {
+                        span.classList.add("last-word");
+                    }
+                    span.innerHTML = textArray[i];
+                    storyDiv.appendChild(span)
+                }
+                if (a) {
+                    showStory2();
+                }
+                else {
+                    showStory();
+                }
             }
-            span.innerHTML = textArray[i];
-            storyDiv.appendChild(span)
-        }
-        if (a) {
-            showStory2();
-        }
-        else {
-            showStory();
-        }
-    }
+        })
+        .catch(error => console.log('error', error));
+
 }
 
 
@@ -430,7 +521,7 @@ window.$("#typebox")[0].value = "";
 
 
 let myOwnPrompt = () => {
-    let keysArray = text.split(" ");
+    let keysArray = texta.split(" ");
     let keyDiv = document.querySelector(".keys");
     for (let i = 0; i < keysArray.length; i++) {
         let p = document.createElement("p");
