@@ -1,116 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index.css" />
 
     <title>Song Story</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <div class="top">
-            <img src="./assets/DSC Vellore Institute of Technology Light Horizontal-Logo-WHITE.png" alt=""
-                class="main-logo">
+      <div class="top">
+        <img
+          src="./assets/DSC Vellore Institute of Technology Light Horizontal-Logo-WHITE.png"
+          alt=""
+          class="main-logo"
+        />
+      </div>
+      <section class="section-4-5">
+        <div class="rest rest-4-5">
+          <div class="left">
+            <h1>
+              <span>Write a</span><span> Prompt</span
+              ><span> for the story!</span>
+            </h1>
+            <div class="grid-div">
+              <div class="left">
+                <textarea
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="10"
+                  class="createPrompt"
+                ></textarea>
+                <button class="" onclick="storyTime(1)">Story Time!</button>
+              </div>
+              <div class="right">
+                <h1>Keywords</h1>
+                <div class="keys"></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <section class="section-4-5">
-            <div class="rest rest-4-5">
-                <div class="left">
-                    <h1><span>Write a</span><span> Prompt</span><span> for the story!</span></h1>
-                    <div class="grid-div">
-                        <div class="left">
-                            <textarea name="" id="" cols="30" rows="10" class="createPrompt"></textarea>
-                            <button class="" onclick="storyTime(1)">Story Time!</button>
-                        </div>
-                        <div class="right">
-                            <h1>Keywords</h1>
-                            <div class="keys"></div>
-                        </div>
-                    </div>
+      </section>
+      <section class="section-5">
+        <div class="rest rest-5">
+          <div class="norm">
+            <div class="prompt"></div>
+            <div class="type">
+              <p class="stats time">0:00</p>
+              <input type="text" id="typebox" onkeyup="typingTest(event)" />
 
-                </div>
-
+              <p class="stats wpm"><span>0</span><span> WPM</span></p>
             </div>
-        </section>
-        <section class="section-5">
-            <div class="rest rest-5">
-                <div class="norm">
-                    <div class="prompt"></div>
-                    <div class="type">
-                        <p class="stats time">0:00</p>
-                        <input type="text" id="typebox" onkeyup="typingTest(event)">
-
-                        <p class="stats wpm"><span>0</span><span> WPM</span></p>
-                    </div>
-                    <div class="result">
-                        <div class="res">
-                            <p>WPM</p>
-                            <p>23</p>
-                        </div>
-                        <div class="res">
-                            <p>Accuracy</p>
-                            <p>23</p>
-                        </div>
-                        <div class="res">
-                            <p>Incorrect</p>
-                            <p>23</p>
-                        </div>
-
-                    </div>
-                    <div class="gen-story">
-                        <button onclick="reset()">Create New Story</button>
-                        <p>OR</p>
-                        <button onclick="typeItOut(this)">Type it Out</button>
-                    </div>
-                </div>
+            <div class="result">
+              <div class="res">
+                <p>WPM</p>
+                <p>23</p>
+              </div>
+              <div class="res">
+                <p>Accuracy</p>
+                <p>23</p>
+              </div>
+              <div class="res">
+                <p>Incorrect</p>
+                <p>23</p>
+              </div>
             </div>
-        </section>
+            <div class="gen-story">
+              <button onclick="reset()">Create New Story</button>
+              <p>OR</p>
+              <button onclick="typeItOut(this)">Type it Out</button>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <section class="section-4">
-            <div class="rest rest-4">
-                <h1><span>Select a</span><span> prompt</span><span> for the story!</span></h1>
-                <div class="multiple-prompts">
-
-                </div>
-                <button onclick="storyTime()">Story Time!</button>
-            </div>
-        </section>
-        <section class="section-3">
-            <div class="rest rest-3">
-                <h1><span>Select</span><span> Keywords</span><span> for the story!</span></h1>
-                <div class="word-puke">
-                </div>
-                <div class="gen-story">
-                    <button onclick="genPrompt()">Generate Prompt</button>
-                    <p>OR</p>
-                    <button onclick="myOwnPrompt()">Create My Own Prompt</button>
-                </div>
-            </div>
-        </section>
-        <section class="section-2">
-            <div class="rest rest-2">
-                <h1><span>Enter your</span><span> favorite</span><span> Artist</span></h1>
-                <input type="text" id="fav-artist" placeholder="Your Favorite Artist">
-                <img src="./assets/Bean Eater-1s-220px.gif" alt="" class="loader">
-            </div>
-        </section>
-        <section class="section-1 show-section show-section-display">
-            <div class="rest rest-1">
-                <h1><span>Song</span><span> Story</span></h1>
-                <p>Create a story out of your favorite lyrics!</p>
-                <button>Log in with Spotify</button>
-                <p>OR</p>
-                <button onclick="ProceedDirectly()">Proceed Directly</button>
-            </div>
-        </section>
-
+      <section class="section-4">
+        <div class="rest rest-4">
+          <h1>
+            <span>Select a</span><span> prompt</span
+            ><span> for the story!</span>
+          </h1>
+          <div class="multiple-prompts"></div>
+          <button onclick="storyTime()">Story Time!</button>
+        </div>
+      </section>
+      <section class="section-3">
+        <div class="rest rest-3">
+          <h1>
+            <span>Select</span><span> Keywords</span
+            ><span> for the story!</span>
+          </h1>
+          <div class="word-puke"></div>
+          <div class="gen-story">
+            <button onclick="genPrompt()">Generate Prompt</button>
+            <p>OR</p>
+            <button onclick="myOwnPrompt()">Create My Own Prompt</button>
+          </div>
+        </div>
+      </section>
+      <section class="section-2">
+        <div class="rest rest-2">
+          <h1>
+            <span>Enter your</span><span> favorite</span><span> Artist</span>
+          </h1>
+          <input
+            type="text"
+            id="fav-artist"
+            placeholder="Your Favorite Artist"
+          />
+          <img src="./assets/Bean Eater-1s-220px.gif" alt="" class="loader" />
+        </div>
+      </section>
+      <section class="section-1 show-section show-section-display">
+        <div class="rest rest-1">
+          <h1><span>Song</span><span> Story</span></h1>
+          <p>Create a story out of your favorite lyrics!</p>
+          <button>Log in with Spotify</button>
+          <p>OR</p>
+          <button onclick="ProceedDirectly()">Proceed Directly</button>
+          <p class="app">
+            For improved <span>performance</span>, download the Desktop App
+            <a href="">here</a>
+          </p>
+        </div>
+      </section>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
     <script src="./index.js"></script>
-</body>
-
-
+  </body>
 </html>
