@@ -12,10 +12,10 @@
 
 
 ## Functionalities(Not integrated with backend)
-- [x]  < Generate Story based on prompt >
-- [x]  < Generate Prompt based on keywords >
-- [x]  < Generate Keywords based on Artist >
-- [x]  < Typing test for the Story generated >
+- [x]  Generate Story based on prompt
+- [x]  Generate Prompt based on keywords
+- [x]  Generate Keywords based on Artist
+- [x]  Typing test for the Story generated
 
 <br>
 
