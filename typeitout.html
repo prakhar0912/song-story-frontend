@@ -3,16 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <link rel="stylesheet" href="index.css" />
-    <style>
-      section {
-        display: block;
-        opacity: 1;
-        pointer-events: all;
-      }
-    </style>
-
     <title>Song Story</title>
   </head>
 
@@ -25,36 +16,36 @@
           class="main-logo"
         />
       </div>
-      <section class="section-5">
+      <section
+        class="section-5"
+        style="display: block; opacity: 1; pointer-events: all"
+      >
         <div class="rest rest-5">
           <div class="norm">
+            <h2>How fast can you type?</h2>
             <div class="prompt"></div>
             <div class="type">
-              <p class="stats time">0:00</p>
               <input type="text" id="typebox" onkeyup="typingTest(event)" />
-
-              <p class="stats wpm"><span>0</span><span> WPM</span></p>
             </div>
-            <div class="result">
-              <div class="res">
-                <p>WPM</p>
-                <p>23</p>
-              </div>
-              <div class="res">
-                <p>Accuracy</p>
-                <p>23</p>
-              </div>
-              <div class="res">
-                <p>Incorrect</p>
-                <p>23</p>
-              </div>
+          </div>
+          <div class="result">
+            <div class="res">
+              <p>Timer</p>
+              <p class="stats time">0:00</p>
             </div>
-            <div class="gen-story">
+            <div class="res">
+              <p>WPM</p>
+              <p class="wpm">0</p>
+            </div>
+            <div class="res">
+              <p>Incorrect</p>
+              <p>0</p>
+            </div>
+            <div class="gen-story gen-story-3">
+              <button>Retry</button>
               <button onclick="window.location.href='./index.html'">
-                Create New Story
+                Exit
               </button>
-              <p>OR</p>
-              <button onclick="typeItOut(this)">Type it Out</button>
             </div>
           </div>
         </div>
@@ -63,11 +54,7 @@
     <script>
       let inputDiv = document.querySelector(".type");
       let typingInput = inputDiv.getElementsByTagName("input")[0];
-      let typeBtn = document.querySelector("button:nth-of-type(2)");
-      sessionStorage.setItem(
-        "story",
-        "so this is all i can do for now so come on man this is all i can do for now so come on man this is all"
-      );
+      let typeBtn = document.querySelector("button:nth-of-type(1)");
 
       let typeItOut = (ele) => {
         inputDiv.classList.add("typeitout");
@@ -112,11 +99,13 @@
           }
         }
         firstTime = true;
-        document.querySelector(".wpm > span:nth-of-type(1)").innerHTML = "0";
+        document.querySelector(".wpm").innerHTML = "0";
         document.querySelector(".time").innerHTML = "0:00";
+        document.querySelector(".res:nth-of-type(3) > p:last-child").innerHTML =
+          wordData.incorrect;
+
         clearInterval(timerVar);
         clearInterval(wpmTimer);
-        removeResult();
         window.$("#typebox")[0].setAttribute("onkeyup", "typingTest(event)");
       };
 
@@ -169,6 +158,9 @@
           current.classList.remove("current-word", "incorrect-word-bg");
           current.classList.add("incorrect-word-c");
           wordData.incorrect += 1;
+          document.querySelector(
+            ".res:nth-of-type(3) > p:last-child"
+          ).innerHTML = wordData.incorrect;
         }
 
         // Update wordData
@@ -191,7 +183,6 @@
         const minutes = seconds / 60;
         const wpm = Math.max(0, Math.ceil((typed / 5 - incorrect) / minutes));
         const accuracy = Math.ceil((correct / total) * 100);
-        showResult(wpm, accuracy);
       }
 
       let timerP = document.querySelector(".time");
@@ -208,7 +199,7 @@
         }
       };
 
-      let wpmP = document.querySelector(".wpm > span:nth-of-type(1)");
+      let wpmP = document.querySelector(".wpm");
 
       let wpm = () => {
         let minutes = wordData.seconds / 60;
@@ -255,20 +246,6 @@
         }
         wordData.typed += 1;
       }
-
-      let showResult = (wpm, acc) => {
-        if (wpm) {
-          let resDiv = document.querySelectorAll(".res");
-          resDiv[0].getElementsByTagName("p")[1].innerHTML = wpm;
-          resDiv[1].getElementsByTagName("p")[1].innerHTML = acc + "%";
-          resDiv[2].getElementsByTagName("p")[1].innerHTML = wordData.incorrect;
-        }
-        document.querySelector(".result").classList.add("show-res");
-      };
-
-      let removeResult = () => {
-        document.querySelector(".result").classList.remove("show-res");
-      };
 
       window.$("#typebox")[0].value = "";
 

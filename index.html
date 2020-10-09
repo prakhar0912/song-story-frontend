@@ -45,6 +45,30 @@
         </div>
       </section>
       <section class="section-5">
+        <div class="popup">
+          <div class="popinner">
+            <div class="close-container">
+              <div class="ham" onclick="pop()">
+                <p class="bar"></p>
+                <p class="bar"></p>
+              </div>
+            </div>
+            <p>Share to</p>
+            <div class="socials">
+              <img src="./assets/facebook.png" alt="" />
+              <img src="./assets/facebook.png" alt="" />
+              <img src="./assets/facebook.png" alt="" />
+            </div>
+            <div class="link">
+              <input
+                type="text"
+                contenteditable="false"
+                value="https://songstory.com?id=arst123ea"
+              />
+              <button>Copy</button>
+            </div>
+          </div>
+        </div>
         <div class="rest rest-5">
           <div class="norm">
             <div class="prompt"></div>
@@ -54,25 +78,14 @@
 
               <p class="stats wpm"><span>0</span><span> WPM</span></p>
             </div>
-            <div class="result">
-              <div class="res">
-                <p>WPM</p>
-                <p>23</p>
-              </div>
-              <div class="res">
-                <p>Accuracy</p>
-                <p>23</p>
-              </div>
-              <div class="res">
-                <p>Incorrect</p>
-                <p>23</p>
-              </div>
-            </div>
-            <div class="gen-story">
+            <div class="gen-story-2">
               <button onclick="reset()">Create New Story</button>
-              <p>OR</p>
               <button onclick="window.open('./typeitout.html')">
                 Type it Out
+              </button>
+              <button onclick="pop()">
+                <img src="./assets/share.png" alt="" />
+                <span>Share</span>
               </button>
             </div>
           </div>
@@ -91,15 +104,26 @@
       </section>
       <section class="section-3">
         <div class="rest rest-3">
-          <h1>
-            <span>Select</span><span> Keywords</span
-            ><span> for the story!</span>
-          </h1>
-          <div class="word-puke"></div>
-          <div class="gen-story">
-            <button onclick="genPrompt()">Generate Prompt</button>
-            <p>OR</p>
-            <button onclick="myOwnPrompt()">Create My Own Prompt</button>
+          <div class="left-3">
+            <h1>
+              <span>Select</span><span> Keywords</span
+              ><span> for the story!</span>
+            </h1>
+            <div class="word-puke"></div>
+            <div class="gen-story">
+              <button onclick="genPrompt()">Generate Prompt</button>
+              <p>OR</p>
+              <button onclick="myOwnPrompt()">Create My Own Prompt</button>
+            </div>
+          </div>
+          <div class="right-3">
+            <h2>Justin Bieber</h2>
+            <img src="./assets/song.jpg" alt="" />
+            <p>Sorry</p>
+            <img src="./assets/song.jpg" alt="" />
+            <p>Sorry</p>
+            <img src="./assets/song.jpg" alt="" />
+            <p>Sorry</p>
           </div>
         </div>
       </section>

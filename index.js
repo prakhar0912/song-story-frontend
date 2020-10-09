@@ -6,6 +6,7 @@ let ProceedDirectly = () => {
     gsap.to(".rest-1 > h1", { x: 2000, duration: 1 });
     gsap.to(".rest-1 > p:nth-of-type(1)", { x: 2000, duration: 1 });
     gsap.to(".rest-1 > p:nth-of-type(2)", { x: -2000, duration: 1 });
+    gsap.to(".rest-1 > p:nth-of-type(3)", { x: -2000, duration: 1 });
     gsap.to(".rest-1 > button:nth-of-type(1)", { x: -2000, duration: 1 });
     gsap.to(".rest-1 > button:nth-of-type(2)", { x: -2000, duration: 1 });
     sections[1].classList.add("show-section-display")
@@ -14,7 +15,7 @@ let ProceedDirectly = () => {
         sections[0].classList.remove("show-section");
         sections[0].classList.remove("show-section-display")
 
-    }, 1000)
+    }, 400)
 
 }
 
@@ -39,6 +40,10 @@ let ArtistSend = () => {
         showKeywords();
     }, 500)
 }
+
+
+
+
 
 let wordPuke = document.querySelector(".word-puke");
 let populateKeywords = (x, y, z, f, l, m) => {
@@ -140,7 +145,7 @@ let showKeywords = () => {
                 t1.to(divs[i].children[j], { opacity: 1, duration: 0.3 }, "-=0.1")
             }
         }
-    }, 1000)
+    }, 400)
 }
 
 
@@ -169,16 +174,17 @@ let selectPrompt = (ele) => {
 
 
 let showPrompt = () => {
-    gsap.to(".rest-3 > h1", { x: -2000, duration: 1 });
-    gsap.to(".rest-3 > .gen-story", { x: 2000, duration: 1 });
-    gsap.to(".rest-3 > .word-puke", { opacity: 0, duration: 1 });
+    gsap.to(".rest-3 > div > h1", { x: -2000, duration: 1 });
+    gsap.to(".rest-3 > .right", { x: 2000, duration: 1 });
+    gsap.to(".rest-3 > div > .gen-story", { x: 2000, duration: 1 });
+    gsap.to(".rest-3 > div > .word-puke", { opacity: 0, duration: 1 });
     sections[3].classList.add("show-section-display")
     setTimeout(() => {
         sections[3].classList.add("show-section");
         sections[2].classList.remove("show-section");
         sections[2].classList.remove("show-section-display")
 
-    }, 1000)
+    }, 400)
 }
 
 let storyTime = (a) => {
@@ -230,37 +236,63 @@ let showStory = () => {
         sections[4].classList.add("show-section");
         sections[3].classList.remove("show-section");
         sections[3].classList.remove("show-section-display")
-    }, 1000)
+    }, 400)
 }
 
 
 
-
+let keysArray = text.split(" ");
+let keyPs = [];
 
 let myOwnPrompt = () => {
-    let keysArray = text.split(" ");
     let keyDiv = document.querySelector(".keys");
     for (let i = 0; i < keysArray.length; i++) {
         let p = document.createElement("p");
         p.innerHTML = keysArray[i];
         keyDiv.appendChild(p);
+        keyPs.push(p);
     }
     showMyOwnPrompt();
+}
+
+let createInput = document.querySelector(".createPrompt");
+createInput.addEventListener("keypress", (key) => {
+    checkWords(key.charCode)
+});
+
+function checkWords(key) {
+    if (key == 32) {
+        let inputArr = createInput.value.split(" ");
+        for (let i = 0; i < keyPs.length; i++) {
+            let flag = 0;
+
+            for (let j = 0; j < inputArr.length; j++) {
+                if (keyPs[i].innerHTML == inputArr[j]) {
+                    keyPs[i].classList.add("done");
+                    flag++;
+                }
+            }
+            if (flag == 0) {
+                keyPs[i].classList.remove("done");
+            }
+        }
+    }
 }
 
 
 
 let showMyOwnPrompt = () => {
-    gsap.to(".rest-3 > h1", { x: -2000, duration: 1 });
-    gsap.to(".rest-3 > .gen-story", { x: 2000, duration: 1 });
-    gsap.to(".rest-3 > .word-puke", { opacity: 0, duration: 1 });
+    gsap.to(".rest-3 > div > h1", { x: -2000, duration: 1 });
+    gsap.to(".rest-3 > .right", { x: 2000, duration: 1 });
+    gsap.to(".rest-3 > div > .gen-story", { x: 2000, duration: 1 });
+    gsap.to(".rest-3 > div > .word-puke", { opacity: 0, duration: 1 });
     sections[5].classList.add("show-section-display")
     setTimeout(() => {
         sections[5].classList.add("show-section");
         sections[2].classList.remove("show-section");
         sections[2].classList.remove("show-section-display")
 
-    }, 1000)
+    }, 400)
 }
 
 let showStory2 = () => {
@@ -272,7 +304,7 @@ let showStory2 = () => {
         sections[4].classList.add("show-section");
         sections[5].classList.remove("show-section");
         sections[5].classList.remove("show-section-display")
-    }, 1000)
+    }, 400)
 }
 
 let reset = () => {
@@ -280,6 +312,17 @@ let reset = () => {
     location.reload();
 }
 
+let popupDiv = document.querySelector(".popup")
+let sec5 = document.querySelector(".rest-5");
+let pop = () => {
+    sec5.classList.toggle("pop-active")
+    popupDiv.classList.toggle("pop");
+}
+
+sessionStorage.setItem(
+    "story",
+    "so this is all i can do for now so come on man this is all i can do for now so come on man this is all. so this is all i can do for now so come on man this is all i can do for now so come on man this is all. so this is all i can do for now so come on man this is all i can do for now so come on man this is all. so this is all i can do for now so come on man this is all i can do for now so come on man this is all. so this is all i can do for now so come on man this is all i can do for now so come on man this is all"
+);
 
 
 
