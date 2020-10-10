@@ -84,7 +84,7 @@ button {
 
 .rest-1 > button:nth-of-type(1),
 .gen-story > button:nth-of-type(1),
-.gen-story-2 > button,
+.clump > button,
 .link > button {
   background-color: var(--neon--c);
   color: var(--black);
@@ -92,7 +92,7 @@ button {
 
 .rest-1 > button:nth-of-type(1):hover,
 .gen-story > button:nth-of-type(1):hover,
-.gen-story-2 > button:hover,
+.clump > button:hover,
 .link > button {
   color: var(--neon--c);
   background-color: var(--black);
@@ -360,10 +360,10 @@ pre {
 
 .gen-story-2 {
   display: grid;
-  grid-template-columns: 30% 30% 40%;
+  grid-template-columns: auto auto;
   align-items: center;
   justify-items: left;
-  width: 85%;
+  width: 90%;
   margin: auto;
 }
 
@@ -371,21 +371,22 @@ pre {
   color: var(--unselected);
 }
 
-.gen-story-2 > button:nth-of-type(3) {
+.gen-story-2 > button {
   display: grid;
   grid-template-columns: auto auto;
   justify-items: left;
   align-items: center;
   justify-self: right;
   column-gap: 10px;
+  background-color: var(--neon--c);
 }
 
-.gen-story-2 > button:nth-of-type(3):hover {
+.gen-story-2 > button:hover {
   background-color: var(--neon--c);
   color: black;
 }
 
-.gen-story-2 > button:nth-of-type(3) > img {
+.gen-story-2 > button > img {
   width: 24px;
   height: 24px;
   justify-self: right;
@@ -615,16 +616,24 @@ pre {
     grid-template-columns: none;
     grid-template-rows: auto;
   }
+  .clump {
+    row-gap: 20px;
+    display: grid;
+    grid-template-rows: auto auto;
+  }
   .gen-story-2 {
     grid-template-columns: none;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto auto;
     justify-items: center;
     row-gap: 20px;
+  }
+  .clump > button {
+    min-width: 300px;
   }
   .gen-story-2 > button {
     min-width: 300px;
   }
-  .gen-story-2 > button:nth-of-type(3) {
+  .gen-story-2 > button {
     justify-self: center;
   }
   .popup {

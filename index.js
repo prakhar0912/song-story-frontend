@@ -187,6 +187,9 @@ let showPrompt = () => {
     }, 400)
 }
 
+let story = `okay so this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now`
+
+
 let storyTime = (a) => {
     let flag = 0;
     if (a) {
@@ -201,20 +204,8 @@ let storyTime = (a) => {
         }
     }
     if (flag != 0) {
-        let text = `okay so this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now`
-        let textArray = text.split(" ");
         let storyDiv = document.querySelector(".rest-5 > div > .prompt");
-        for (let i = 0; i < textArray.length; i++) {
-            let span = document.createElement("span");
-            if (i == 0) {
-                span.classList.add("current-word");
-            }
-            if (i == textArray.length - 1) {
-                span.classList.add("last-word");
-            }
-            span.innerHTML = textArray[i];
-            storyDiv.appendChild(span)
-        }
+        storyDiv.innerHTML = story;
         if (a) {
             showStory2();
         }

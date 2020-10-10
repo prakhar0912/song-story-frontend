@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="index.css" />
-
     <title>Song Story</title>
   </head>
 
@@ -14,7 +13,7 @@
       <div class="top">
         <img
           src="./assets/DSC Vellore Institute of Technology Light Horizontal-Logo-WHITE.png"
-          alt=""
+          alt="DSC VIT LOGO"
           class="main-logo"
         />
       </div>
@@ -55,12 +54,13 @@
             </div>
             <p>Share to</p>
             <div class="socials">
-              <img src="./assets/facebook.png" alt="" />
-              <img src="./assets/facebook.png" alt="" />
-              <img src="./assets/facebook.png" alt="" />
+              <img src="./assets/facebook.png" alt="facebook" />
+              <img src="./assets/facebook.png" alt="twitter" />
+              <img src="./assets/facebook.png" alt="instagram" />
             </div>
             <div class="link">
               <input
+                aria-label="story link"
                 type="text"
                 contenteditable="false"
                 value="https://songstory.com?id=arst123ea"
@@ -69,22 +69,29 @@
             </div>
           </div>
         </div>
-        <div class="rest rest-5">
+        <div class="rest rest-5" style="display: block">
           <div class="norm">
             <div class="prompt"></div>
             <div class="type">
               <p class="stats time">0:00</p>
-              <input type="text" id="typebox" onkeyup="typingTest(event)" />
+              <input
+                aria-label="type here"
+                type="text"
+                id="typebox"
+                onkeyup="typingTest(event)"
+              />
 
               <p class="stats wpm"><span>0</span><span> WPM</span></p>
             </div>
             <div class="gen-story-2">
-              <button onclick="reset()">Create New Story</button>
-              <button onclick="window.open('./typeitout.html')">
-                Type it Out
-              </button>
+              <div class="clump">
+                <button onclick="reset()">Create New Story</button>
+                <button onclick="window.open('./typeitout.html')">
+                  Type it Out
+                </button>
+              </div>
               <button onclick="pop()">
-                <img src="./assets/share.png" alt="" />
+                <img src="./assets/share.png" alt="share" />
                 <span>Share</span>
               </button>
             </div>
@@ -118,11 +125,11 @@
           </div>
           <div class="right-3">
             <h2>Justin Bieber</h2>
-            <img src="./assets/song.jpg" alt="" />
+            <img src="./assets/song.jpg" alt="Song" />
             <p>Sorry</p>
-            <img src="./assets/song.jpg" alt="" />
+            <img src="./assets/song.jpg" alt="Song" />
             <p>Sorry</p>
-            <img src="./assets/song.jpg" alt="" />
+            <img src="./assets/song.jpg" alt="Song" />
             <p>Sorry</p>
           </div>
         </div>
@@ -136,8 +143,13 @@
             type="text"
             id="fav-artist"
             placeholder="Your Favorite Artist"
+            aria-label="fav artist"
           />
-          <img src="./assets/Bean Eater-1s-220px.gif" alt="" class="loader" />
+          <img
+            src="./assets/Bean Eater-1s-220px.gif"
+            alt="loader"
+            class="loader"
+          />
         </div>
       </section>
       <section class="section-1 show-section show-section-display">
