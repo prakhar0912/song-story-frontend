@@ -1,3 +1,4 @@
+let api = "";
 let sections = document.querySelectorAll("section");
 sections = [].slice.call(sections, 0).reverse();
 
@@ -25,20 +26,25 @@ let text = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius, temp
 let favArtist = document.querySelector("#fav-artist");
 let ArtistSend = () => {
     //send the artist to the backend
-    let loader = document.querySelector(".rest-2 > .loader");
-    console.log(loader)
-    loader.classList.add("show");
-    setTimeout(() => {
-        loader.classList.remove("show");
-        if (window.innerWidth > 800) {
-            populateKeywords(5, 6, 4, 3, 5, 4);
+    if (api == "") {
+        let loader = document.querySelector(".rest-2 > .loader");
+        console.log(loader)
+        loader.classList.add("show");
+        setTimeout(() => {
+            loader.classList.remove("show");
+            if (window.innerWidth > 800) {
+                populateKeywords(5, 6, 4, 3, 5, 4);
 
-        }
-        else {
-            populateKeywords(3, 4, 2, 2, 4, 3);
-        }
-        showKeywords();
-    }, 500)
+            }
+            else {
+                populateKeywords(3, 4, 2, 2, 4, 3);
+            }
+            showKeywords();
+        }, 500)
+    }
+    else {
+
+    }
 }
 
 
