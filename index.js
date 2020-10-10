@@ -360,7 +360,7 @@ let showStory = () => {
 
 
 
-let keysArray = text.split(" ");
+let keysArray = keywordsString.split(" ");
 let keyPs = [];
 
 let myOwnPrompt = () => {
