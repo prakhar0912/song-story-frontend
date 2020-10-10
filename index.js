@@ -21,7 +21,7 @@ let ProceedDirectly = () => {
 }
 
 
-let text = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius, temporibus dolores ipsum quas nam unde neque ducimus";
+let keywordsString = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius, temporibus dolores ipsum quas nam unde neque ducimus";
 
 let favArtist = document.querySelector("#fav-artist");
 let ArtistSend = () => {
@@ -43,7 +43,65 @@ let ArtistSend = () => {
         }, 500)
     }
     else {
+        var requestOptions = {
+            method: 'GET',
+            // body: JSON.stringify(raw),
+            redirect: 'follow'
+        };
+        let loader = document.querySelector(".rest-2 > .loader");
+        console.log(loader)
+        loader.classList.add("show");
 
+        fetch(api + "/context?name=" + document.querySelector("#fav-artist").value, requestOptions)
+            .then(response => {
+                loader.classList.remove("show");
+                return response.json()
+            })
+            .then(result => {
+                console.log(result);
+                var raw = {
+                    text: result["story"]
+                }
+
+                var requestOptions = {
+                    method: 'POST',
+                    body: JSON.stringify(raw),
+                    redirect: 'follow'
+                };
+
+                fetch(api + "/keywords", requestOptions)
+                    .then(response => response.json())
+                    .then(result => {
+                        console.log(result)
+                        let phrase = result["phrase"].replace(/"/gi, "");
+                        phrase = phrase.replace(/‘/gi, "")
+                        phrase = phrase.replace(/“/gi, "")
+                        phrase = phrase.replace(/”/gi, "")
+                        phrase = phrase.replace(/-/gi, "")
+                        phrase = phrase.replace(/_/gi, "")
+                        phrase = phrase.replace(/—/gi, "")
+
+
+                        // phrase = phrase.replace(/./gi, "")
+                        phrase = phrase.replace(/’/gi, "")
+                        phrase = phrase.replace(/,/gi, "")
+
+
+                        // phrase = phrase.replace(/+/gi, "")
+                        console.log(phrase)
+                        keywordsString = phrase;
+                        if (window.innerWidth > 800) {
+                            populateKeywords(5, 6, 4, 3, 5, 4);
+
+                        }
+                        else {
+                            populateKeywords(3, 4, 2, 2, 4, 3);
+                        }
+                        showKeywords();
+                    })
+                    .catch(error => console.log('error', error));
+            })
+            .catch(error => console.log('error', error));
     }
 }
 
@@ -53,7 +111,7 @@ let ArtistSend = () => {
 
 let wordPuke = document.querySelector(".word-puke");
 let populateKeywords = (x, y, z, f, l, m) => {
-    let textArray = text.split(" ");
+    let textArray = keywordsString.split(" ");
     let paradArray = [];
     let k = 1;
     let c = 0;
