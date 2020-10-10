@@ -251,31 +251,95 @@ let showPrompt = () => {
     }, 400)
 }
 
-let story = `okay so this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now`
+let story = `okay so this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now okay so this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now okay so this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now okay so this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now so come on man this is all i can do for now`
 
 
 let storyTime = (a) => {
-    let flag = 0;
-    if (a) {
-        flag = 1;
-    }
-    else {
-        let prompts = document.querySelectorAll(".multiple-prompts > .prompt");
-        for (let i = 0; i < prompts.length; i++) {
-            if (prompts[i].classList[1] == "selected-prompt") {
-                flag++;
+    if (api == "") {
+        let flag = 0;
+        if (a) {
+            flag = 1;
+        }
+        else {
+            let prompts = document.querySelectorAll(".multiple-prompts > .prompt");
+            for (let i = 0; i < prompts.length; i++) {
+                if (prompts[i].classList[1] == "selected-prompt") {
+                    flag++;
+                }
+            }
+        }
+        if (flag != 0) {
+            sessionStorage.setItem(
+                "story", story
+            );
+            let storyDiv = document.querySelector(".rest-5 > div > .prompt");
+            storyDiv.innerHTML = story;
+            if (a) {
+                showStory2();
+            }
+            else {
+                showStory();
             }
         }
     }
-    if (flag != 0) {
-        let storyDiv = document.querySelector(".rest-5 > div > .prompt");
-        storyDiv.innerHTML = story;
+    else {
+        let flag = 0;
         if (a) {
-            showStory2();
+            flag = 1;
         }
         else {
-            showStory();
+            let prompts = document.querySelectorAll(".multiple-prompts > .prompt");
+            for (let i = 0; i < prompts.length; i++) {
+                if (prompts[i].classList[1] == "selected-prompt") {
+                    flag++;
+                }
+            }
         }
+        if (flag == 0) {
+            return;
+        }
+        var raw = "{\n    \"prompt\":\"The moon is actually a giant alien egg\"\n}";
+
+        var requestOptions = {
+            method: 'POST',
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch(api + "/story", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result);
+                console.log(a)
+
+
+                let text = result["story"];
+                text = text.replace(/“/gi, "")
+                text = text.replace(/”/gi, "")
+                text = text.replace(/‘/gi, "")
+                text = text.replace(/-/gi, "")
+                text = text.replace(/_/gi, "")
+                text = text.replace(/—/gi, "")
+
+
+                // phrase = phrase.replace(/./gi, "")
+                text = text.replace(/’/gi, "")
+                text = text.replace(/,/gi, "")
+                let storyDiv = document.querySelector(".rest-5 > div > .prompt");
+                storyDiv.innerHTML = text;
+                sessionStorage.setItem(
+                    "story", text
+                );
+
+                if (a) {
+                    showStory2();
+                }
+                else {
+                    showStory();
+                }
+
+            })
+            .catch(error => console.log('error', error));
     }
 }
 
@@ -374,10 +438,7 @@ let pop = () => {
     popupDiv.classList.toggle("pop");
 }
 
-sessionStorage.setItem(
-    "story",
-    "so this is all i can do for now so come on man this is all i can do for now so come on man this is all. so this is all i can do for now so come on man this is all i can do for now so come on man this is all. so this is all i can do for now so come on man this is all i can do for now so come on man this is all. so this is all i can do for now so come on man this is all i can do for now so come on man this is all. so this is all i can do for now so come on man this is all i can do for now so come on man this is all"
-);
+
 
 
 
