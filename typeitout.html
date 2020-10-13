@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>Song Story</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="top">
+        <img
+          src="./assets/DSC Vellore Institute of Technology Light Horizontal-Logo-WHITE.png"
+          alt="DSC VIT LOGO"
+          class="main-logo"
+        />
+      </div>
+      <section
+        class="section-5"
+        style="display: block; opacity: 1; pointer-events: all"
+      >
+        <div class="rest rest-5">
+          <div class="norm">
+            <h2>How fast can you type?</h2>
+            <div class="prompt"></div>
+            <div class="type">
+              <input
+                type="text"
+                aria-label="type here"
+                id="typebox"
+                onkeyup="typingTest(event)"
+              />
+            </div>
+          </div>
+          <div class="result">
+            <div class="res">
+              <p>Timer</p>
+              <p class="stats time">0:00</p>
+            </div>
+            <div class="res">
+              <p>WPM</p>
+              <p class="wpm">0</p>
+            </div>
+            <div class="res">
+              <p>Incorrect</p>
+              <p>0</p>
+            </div>
+            <div class="gen-story gen-story-3">
+              <button>Retry</button>
+              <button onclick="window.location.href='./index.html'">
+                Exit
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script>
+      let inputDiv = document.querySelector(".type");
+      let typingInput = inputDiv.getElementsByTagName("input")[0];
+      let typeBtn = document.querySelector("button:nth-of-type(1)");
+
+      let typeItOut = (ele) => {
+        inputDiv.classList.add("typeitout");
+        setSpans(sessionStorage.getItem("story"));
+        ele.innerHTML = "Retry";
+        ele.setAttribute("onclick", "retry()");
+      };
+
+      let setSpans = (string) => {
+        let arr = string.split(" ");
+        let spansDiv = document.querySelector(".prompt");
+        for (let i = 0; i < arr.length; i++) {
+          let s = document.createElement("span");
+          s.innerHTML = arr[i];
+          if (i == 0) {
+            s.classList.add("current-word");
+          }
+          if (i == arr.length - 1) {
+            s.classList.add("last-word");
+          }
+          spansDiv.appendChild(s);
+        }
+      };
+
+      let retry = () => {
+        window.$("#typebox")[0].value = "";
+        wordData = {
+          seconds: 0,
+          correct: 0,
+          incorrect: 0,
+          total: 0,
+          typed: 0,
+        };
+        let spans = document.querySelectorAll(".rest-5 > div > .prompt > span");
+        for (let i = 0; i < spans.length; i++) {
+          spans[i].classList = "";
+          if (i == 0) {
+            spans[i].classList.add("current-word");
+          }
+          if (i == spans.length - 1) {
+            spans[i].classList.add("last-word");
+          }
+        }
+        firstTime = true;
+        document.querySelector(".wpm").innerHTML = "0";
+        document.querySelector(".time").innerHTML = "0:00";
+        document.querySelector(".res:nth-of-type(3) > p:last-child").innerHTML =
+          wordData.incorrect;
+
+        clearInterval(timerVar);
+        clearInterval(wpmTimer);
+        window.$("#typebox")[0].setAttribute("onkeyup", "typingTest(event)");
+      };
+
+      window.$ = document.querySelectorAll.bind(document);
+
+      String.prototype.removeCharAt = function (i) {
+        var tmp = this.split(""); // convert to an array
+        tmp.splice(i - 1, 1); // remove 1 element from the array (adjusting for non-zero-indexed counts)
+        return tmp.join(""); // reconstruct the string
+      };
+      let wordData = {
+        seconds: 0,
+        correct: 0,
+        incorrect: 0,
+        total: 0,
+        typed: 0,
+      };
+
+      function checkWord(word) {
+        const wlen = word.value.length;
+        const wval = word.value.trim();
+
+        // How much we have of the current word.
+        const current = window.$(".current-word")[0];
+        const currentSubstring = current.innerHTML.substring(0, wlen);
+
+        // Check if we have any typing errors and make sure there is a real
+        // word to check https://github.com/anschwa/typing-test/issues/2
+        const noMatch = wval !== currentSubstring;
+        const emptyWords = wval === "" || currentSubstring === "";
+
+        if (noMatch || emptyWords) {
+          current.classList.add("incorrect-word-bg");
+          return false;
+        } else {
+          current.classList.remove("incorrect-word-bg");
+          return true;
+        }
+      }
+
+      function submitWord(word) {
+        // Update current-word and keep track of correct & incorrect words
+        const current = window.$(".current-word")[0];
+
+        if (checkWord(word)) {
+          current.classList.remove("current-word");
+          current.classList.add("correct-word-c");
+          wordData.correct += 1;
+        } else {
+          current.classList.remove("current-word", "incorrect-word-bg");
+          current.classList.add("incorrect-word-c");
+          wordData.incorrect += 1;
+          document.querySelector(
+            ".res:nth-of-type(3) > p:last-child"
+          ).innerHTML = wordData.incorrect;
+        }
+
+        // Update wordData
+        wordData.total = wordData.correct + wordData.incorrect;
+
+        if (current.classList[0] == "last-word") {
+          calculateWPM(wordData);
+        } else {
+          // Make the next word the new current-word.
+          current.nextSibling.classList.add("current-word");
+        }
+      }
+
+      function calculateWPM(data) {
+        window.$("#typebox")[0].removeAttribute("onkeyup");
+        clearInterval(timerVar);
+        clearInterval(wpmTimer);
+        console.log("here");
+        const { seconds, correct, incorrect, total, typed } = data;
+        const minutes = seconds / 60;
+        const wpm = Math.max(0, Math.ceil((typed / 5 - incorrect) / minutes));
+        const accuracy = Math.ceil((correct / total) * 100);
+      }
+
+      let timerP = document.querySelector(".time");
+      let min, sec;
+
+      let timer = () => {
+        wordData.seconds++;
+        min = Math.floor(wordData.seconds / 60);
+        sec = wordData.seconds % 60;
+        if (sec < 10) {
+          timerP.innerHTML = min + ":0" + sec;
+        } else {
+          timerP.innerHTML = min + ":" + sec;
+        }
+      };
+
+      let wpmP = document.querySelector(".wpm");
+
+      let wpm = () => {
+        let minutes = wordData.seconds / 60;
+        let wpm = Math.max(
+          0,
+          Math.ceil((wordData.typed / 5 - wordData.incorrect) / minutes)
+        );
+        wpmP.innerHTML = wpm;
+      };
+
+      let firstTime = true;
+      let timerVar;
+      function typingTest(e) {
+        if (firstTime) {
+          timerVar = setInterval(timer, 1000);
+          wpmTimer = setInterval(wpm, 300);
+          firstTime = false;
+        }
+        const SPACE = 32;
+
+        // Get key code of current key pressed.
+        e = e || window.event;
+        const kcode = e.keyCode;
+        const word = window.$("#typebox")[0];
+
+        // Check if empty (starts with space)
+        if (word.value.match(/^\s/g)) {
+          word.value = "";
+          return;
+        }
+
+        // Display typing test results when timer runs out.
+        // const isGameover = isDone();
+        // if (isGameover) {
+        //     calculateWPM(wordData);
+        //     return;
+        // }
+
+        // Otherwise, keep score when timer is on.
+        checkWord(word);
+        if (kcode === SPACE) {
+          submitWord(word);
+          window.$("#typebox")[0].value = "";
+        }
+        wordData.typed += 1;
+      }
+
+      window.$("#typebox")[0].value = "";
+
+      typeItOut(typeBtn, window.location.href);
+    </script>
+  </body>
+</html>
