@@ -63,7 +63,7 @@
 
       let typeItOut = (ele) => {
         inputDiv.classList.add("typeitout");
-        setSpans(sessionStorage.getItem("story"));
+        setSpans(localStorage.getItem("story"));
         ele.innerHTML = "Retry";
         ele.setAttribute("onclick", "retry()");
       };
