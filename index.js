@@ -1,6 +1,8 @@
 const electron = require('electron');
 const url = require('url')
 const path = require('path')
+var { PythonShell } = require('python-shell');
+let pyshell = new PythonShell(__dirname + '/server/run.py')
 
 const { app, BrowserWindow, Menu } = electron;
 
@@ -14,6 +16,11 @@ let appReady = () => {
         protocol: 'file:',
         slashes: true
     }));
+
+    mainWindow.on('close', function (e) {
+        console.log('close')
+        pyshell.kill('SIGINT')
+    });
 
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
     Menu.setApplicationMenu(mainMenu);
@@ -53,8 +60,37 @@ if (process.env.NODE_ENV !== 'production') {
     })
 }
 
+// app.on('window-all-closed', function () {
+//     console.log('window-all-closed')
+//     pyshell.kill('SIGINT')
+//     pyshell.childProcess.kill('SIGINT')
+//     app.quit();
+// });
+
+// app.on('will-quit', function () {
+//     // This is a good place to add tests insuring the app is still
+//     // responsive and all windows are closed.
+//     console.log('will-quit')
+//     pyshell.kill('SIGINT')
+//     pyshell.childProcess.kill('SIGINT')
+//     console.log("will-quit");
+//     mainWindow = null;
+// });
 
 
+// pyshell.end(function (err, code, signal) {
+//     console.log("herre");
+//     pyshell.kill('SIGINT')
+//     pyshell.childProcess.kill('SIGINT')
+//     if (err) {
+//         console.log(err)
+//     }
+//     else {
+//         console.log('The exit code was: ' + code);
+//         console.log('The exit signal was: ' + signal);
+//         console.log('finished');
+//     }
+// });
 
 
 

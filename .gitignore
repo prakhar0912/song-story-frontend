@@ -1,2 +1,5 @@
 node_modules/
 release-builds/
+server/models/
+server/song_story/.env
+server/song_story/app/__pycache__/run.cpython-38.pyc

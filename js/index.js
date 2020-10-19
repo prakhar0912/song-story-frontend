@@ -1,6 +1,74 @@
-let api = "";
+let port = 5005;
+let api = "http://localhost:" + port;
 let sections = document.querySelectorAll("section");
 sections = [].slice.call(sections, 0).reverse();
+let healthCheck = 0;
+
+let errorScreen = () => {
+    let container = document.querySelector('.container')
+    container.classList.add('error');
+    container.innerHTML = `
+    <h1>There has been some error! Please Reload</h1>
+    <button onclick="location.reload()">Reload</button>
+    `
+}
+
+let showSection1 = () => {
+    sections[0].classList.add("show-section");
+
+    sections[0].classList.add("show-section-display")
+    document.querySelector(".section-0").classList.remove("show-section");
+    document.querySelector(".section-0").classList.remove("show-section-display")
+}
+
+
+let checkHealth = () => {
+    healthCheck++;
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    fetch(api + "/status", requestOptions)
+        .then(response => {
+            if (!response.ok) {
+                throw Error(response.statusText);
+            }
+            return response.json()
+        })
+        .then((result) => {
+            console.log(result);
+            if (result.status != "success" && healthCheck > 9) {
+                errorScreen();
+            }
+            else if (result.status == "success") {
+                healthCheck = 0;
+                clearInterval(healthCheckInt);
+                showSection1();
+            }
+        })
+        .catch(error => {
+            console.log('error', error)
+            if (healthCheck > 9) {
+                errorScreen();
+            }
+        })
+
+}
+
+
+let healthCheckInt
+if (api != "") {
+    checkHealth()
+    healthCheckInt = setInterval(() => {
+        checkHealth()
+    }, 3000)
+}
+
 
 
 let ProceedDirectly = () => {
@@ -28,7 +96,6 @@ let ArtistSend = () => {
     //send the artist to the backend
     if (api == "") {
         let loader = document.querySelector(".rest-2 > .loader");
-        console.log(loader)
         loader.classList.add("show");
         setTimeout(() => {
             loader.classList.remove("show");
@@ -49,16 +116,22 @@ let ArtistSend = () => {
             redirect: 'follow'
         };
         let loader = document.querySelector(".rest-2 > .loader");
-        console.log(loader)
         loader.classList.add("show");
+        let artistName = document.querySelector("#fav-artist").value
 
-        fetch(api + "/context?name=" + document.querySelector("#fav-artist").value, requestOptions)
+        fetch(api + "/context?name=" + artistName, requestOptions)
             .then(response => {
                 loader.classList.remove("show");
                 return response.json()
             })
             .then(result => {
                 console.log(result);
+                let imageDiv = document.querySelector(".right-3");
+                imageDiv.innerHTML = `
+                <h2>${artistName}</h2>
+                <p>${result["title"]}</p>
+                <img src="${result["image"]}" alt="Song"/>
+                `
                 var raw = {
                     text: result["story"]
                 }
@@ -80,8 +153,6 @@ let ArtistSend = () => {
                         phrase = phrase.replace(/-/gi, "")
                         phrase = phrase.replace(/_/gi, "")
                         phrase = phrase.replace(/—/gi, "")
-
-
                         // phrase = phrase.replace(/./gi, "")
                         phrase = phrase.replace(/’/gi, "")
                         phrase = phrase.replace(/,/gi, "")
@@ -106,18 +177,25 @@ let ArtistSend = () => {
 }
 
 
-
+let selectedKeywords = ""
+let noKeywords;
 
 
 let wordPuke = document.querySelector(".word-puke");
 let populateKeywords = (x, y, z, f, l, m) => {
     let textArray = keywordsString.split(" ");
+    if (textArray.length > 60) {
+        noKeywords = 60;
+    }
+    else {
+        noKeywords = textArray.length
+    }
     let paradArray = [];
     let k = 1;
     let c = 0;
     let dummy = [];
     console.log(textArray)
-    for (let i = 0; i < textArray.length; i++) {
+    for (let i = 0; i < noKeywords; i++) {
         dummy.push(textArray[i])
         c++;
         if (k % 3 == 0 && c % x == 0) {
@@ -147,7 +225,7 @@ let populateKeywords = (x, y, z, f, l, m) => {
             }
         }
     }
-    console.log(paradArray)
+    // console.log(paradArray)
     c = 0;
     for (let i = 0; i < paradArray.length; i++) {
         let div = document.createElement("div");
@@ -179,7 +257,7 @@ let populateKeywords = (x, y, z, f, l, m) => {
                     p.style.fontSize = m + "rem";
                 }
             }
-            p.setAttribute("onclick", "this.classList.toggle('selected')");
+            p.setAttribute("onclick", "this.classList.toggle('selected'); selectedKeywords += this.innerHTML");
             div.appendChild(p);
         }
         wordPuke.appendChild(div)
@@ -214,17 +292,55 @@ let showKeywords = () => {
 
 
 let genPrompt = () => {
+
     let promptDiv = document.querySelector(".multiple-prompts");
-    let textArray = ["Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit autem iusto suscipit non aliquid accusantium saepe numquam praesentium nesciunt, ullam aperiam, minus ipsam dolor quo fugit id quidem minima ipsum.", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit autem iusto suscipit non aliquid accusantium saepe numquam praesentium nesciunt, ullam aperiam, minus ipsam dolor quo fugit id quidem minima ipsum.", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit autem iusto suscipit non aliquid accusantium saepe numquam praesentium nesciunt, ullam aperiam, minus ipsam dolor quo fugit id quidem minima ipsum.", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit autem iusto suscipit non aliquid accusantium saepe numquam praesentium nesciunt, ullam aperiam, minus ipsam dolor quo fugit id quidem minima ipsum.",];
-    //Get Prompt from backend
-    for (let i = 0; i < textArray.length; i++) {
-        let prompt = document.createElement("div");
-        prompt.classList.add("prompt");
-        prompt.setAttribute("onclick", "selectPrompt(this)");
-        prompt.innerHTML = textArray[i];
-        promptDiv.appendChild(prompt);
+    document.querySelector('.more-keys-1').classList.remove("show")
+    if (selectedKeywords.split(" ").length < 0.55 * noKeywords) {
+        document.querySelector('.more-keys-1').classList.add("show")
+        document.querySelector('.more-keys-1').scrollIntoView({
+            behavior: 'smooth'
+        })
+        return
     }
-    showPrompt();
+    let loader = document.querySelector(".left-3 > .loader");
+    loader.classList.add("show");
+    loader.scrollIntoView({
+        behavior: 'smooth'
+    })
+    if (api == "") {
+        let textArray = ["Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit autem iusto suscipit non aliquid accusantium saepe numquam praesentium nesciunt, ullam aperiam, minus ipsam dolor quo fugit id quidem minima ipsum.", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit autem iusto suscipit non aliquid accusantium saepe numquam praesentium nesciunt, ullam aperiam, minus ipsam dolor quo fugit id quidem minima ipsum.", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit autem iusto suscipit non aliquid accusantium saepe numquam praesentium nesciunt, ullam aperiam, minus ipsam dolor quo fugit id quidem minima ipsum.", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit autem iusto suscipit non aliquid accusantium saepe numquam praesentium nesciunt, ullam aperiam, minus ipsam dolor quo fugit id quidem minima ipsum.",];
+        //Get Prompt from backend
+        for (let i = 0; i < textArray.length; i++) {
+            let prompt = document.createElement("div");
+            prompt.classList.add("prompt");
+            prompt.setAttribute("onclick", "selectPrompt(this)");
+            prompt.innerHTML = textArray[i];
+            promptDiv.appendChild(prompt);
+        }
+        showPrompt();
+    }
+    else {
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        fetch(api + "/prompt?keywords=" + selectedKeywords, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                let textArray = result["prompt"]
+                for (let i = 0; i < textArray.length; i++) {
+                    let prompt = document.createElement("div");
+                    prompt.classList.add("prompt");
+                    prompt.setAttribute("onclick", "selectPrompt(this)");
+                    prompt.innerHTML = textArray[i];
+                    promptDiv.appendChild(prompt);
+                }
+                showPrompt();
+            })
+            .catch(error => console.log('error', error));
+    }
 }
 
 
@@ -269,6 +385,11 @@ let storyTime = (a) => {
             }
         }
         if (flag != 0) {
+            let loader = document.querySelector(".loader-a" + a);
+            loader.classList.add("show");
+            loader.scrollIntoView({
+                behavior: 'smooth'
+            })
             localStorage.setItem(
                 "story", story
             );
@@ -285,9 +406,16 @@ let storyTime = (a) => {
     else {
         let flag = 0;
         if (a) {
+            document.querySelector('.more-keys-2').classList.remove("show")
+            console.log(document.querySelectorAll('.keys > .done').length)
             flag = 1;
+            if (document.querySelectorAll('.keys > .done').length < 0.5 * noKeywords) {
+                document.querySelector('.more-keys-2').classList.add("show")
+                flag = 0
+            }
         }
         else {
+            document.querySelector('.more-keys-3').classList.remove("show")
             let prompts = document.querySelectorAll(".multiple-prompts > .prompt");
             for (let i = 0; i < prompts.length; i++) {
                 if (prompts[i].classList[1] == "selected-prompt") {
@@ -296,13 +424,35 @@ let storyTime = (a) => {
             }
         }
         if (flag == 0) {
+            document.querySelector('.more-keys-3').classList.add("show")
+            document.querySelector('.more-keys-3').scrollIntoView({
+                behavior: 'smooth'
+            })
             return;
         }
-        var raw = "{\n    \"prompt\":\"The moon is actually a giant alien egg\"\n}";
+        let loader
+        let raw
+        if (a) {
+            loader = document.querySelector(".loader-aa");
+            raw = {
+                prompt: document.querySelector('.createPrompt').value
+            };
+        }
+        else {
+            loader = document.querySelector(".loader-a");
+            raw = {
+                prompt: document.querySelector('.selected-prompt').innerHTML
+            };
+        }
+        console.log(loader)
+        loader.classList.add("show");
+        loader.scrollIntoView({
+            behavior: 'smooth'
+        })
 
         var requestOptions = {
             method: 'POST',
-            body: raw,
+            body: JSON.stringify(raw),
             redirect: 'follow'
         };
 
@@ -327,7 +477,7 @@ let storyTime = (a) => {
                 text = text.replace(/,/gi, "")
                 let storyDiv = document.querySelector(".rest-5 > div > .prompt");
                 storyDiv.innerHTML = text;
-                sessionStorage.setItem(
+                localStorage.setItem(
                     "story", text
                 );
 
@@ -360,12 +510,13 @@ let showStory = () => {
 
 
 
-let keysArray = keywordsString.split(" ");
 let keyPs = [];
 
 let myOwnPrompt = () => {
+    let keysArray = keywordsString.split(" ");
+
     let keyDiv = document.querySelector(".keys");
-    for (let i = 0; i < keysArray.length; i++) {
+    for (let i = 0; i < noKeywords; i++) {
         let p = document.createElement("p");
         p.innerHTML = keysArray[i];
         keyDiv.appendChild(p);
@@ -437,6 +588,8 @@ let pop = () => {
     sec5.classList.toggle("pop-active")
     popupDiv.classList.toggle("pop");
 }
+
+
 
 
 

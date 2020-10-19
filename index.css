@@ -123,7 +123,7 @@ input {
   margin-top: 100px;
 }
 
-.rest-2 > img {
+.loader {
   display: block;
   margin: 0 auto;
   width: 100px;
@@ -132,8 +132,25 @@ input {
   display: none;
 }
 
+.more-keys {
+  display: none;
+}
+
 .word-puke {
   color: var(--unselected);
+}
+
+/* rest-0 */
+
+.section-0 {
+  display: none;
+}
+
+.rest-0 {
+  display: grid;
+  grid-template-columns: 100%;
+  justify-items: center;
+  align-items: center;
 }
 
 /* .rest-3{
@@ -239,6 +256,7 @@ pre {
   display: grid;
   grid-template-columns: 80% 20%;
   justify-items: right;
+  margin-top: 50px;
 }
 
 .rest-5 > div > .prompt > span::after {
@@ -318,12 +336,13 @@ pre {
 }
 
 .left > textarea {
-  min-height: 50%;
+  min-height: 300px;
   min-width: 70%;
   border-radius: 7px;
   padding: 25px;
   font-size: 1.8rem;
   margin: 20px auto;
+  max-height: 500px;
 }
 
 .left > button {
@@ -649,6 +668,25 @@ pre {
     grid-template-rows: auto auto;
     row-gap: 20px;
   }
+}
+
+.error {
+  color: white;
+  display: grid;
+  grid-template-columns: 100%;
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+}
+
+.error > button {
+  color: var(--neon--c);
+  background-color: var(--black);
+}
+
+.error > button:hover {
+  background-color: var(--neon--c);
+  color: var(--black);
 }
 
 .selected {

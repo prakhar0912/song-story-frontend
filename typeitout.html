@@ -71,7 +71,13 @@
       let setSpans = (string) => {
         let arr = string.split(" ");
         let spansDiv = document.querySelector(".prompt");
-        for (let i = 0; i < arr.length; i++) {
+        let totlen;
+        if (arr.length > 130) {
+          totlen = 130;
+        } else {
+          totlen = arr.len;
+        }
+        for (let i = 0; i < totlen; i++) {
           let s = document.createElement("span");
           s.innerHTML = arr[i];
           if (i == 0) {
