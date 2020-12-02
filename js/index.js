@@ -21,6 +21,46 @@ let showSection1 = () => {
     document.querySelector(".section-0").classList.remove("show-section-display")
 }
 
+let searchDiv = document.querySelector('.search-res')
+
+let renderSearch = (data) => {
+    searchDiv.style.height = (0) + 'px'
+    searchDiv.innerHTML = "";
+    for (let i = 0; i < data.length; i++) {
+        let p = document.createElement('p')
+        p.addEventListener('click', () => {
+            favArtist.value = data[i]
+        })
+        p.innerHTML = data[i]
+        searchDiv.appendChild(p)
+    }
+    searchDiv.style.height = (data.length * 50) + 'px'
+}
+
+
+let search = (val) => {
+    if (val == "") {
+        return
+    }
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    fetch(api + "/artist?name=" + val, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result)
+            renderSearch(result["artists"])
+        })
+        .catch(error => console.log('error', error));
+}
+
+
 
 let checkHealth = () => {
     healthCheck++;
@@ -268,6 +308,9 @@ let populateKeywords = (x, y, z, f, l, m) => {
 favArtist.addEventListener('keyup', ({ key }) => {
     if (key === "Enter") {
         ArtistSend();
+    }
+    else {
+        search(favArtist.value)
     }
 })
 

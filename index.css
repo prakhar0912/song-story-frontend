@@ -331,6 +331,34 @@ pre {
   font-size: 2.5rem;
 }
 
+.fav-artist-div {
+  position: relative;
+}
+
+.search-res {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  background-color: var(--black);
+  color: var(--neon--c);
+  display: grid;
+  grid-template-columns: 100%;
+  min-width: 200px;
+  align-items: center;
+  padding: 10px;
+  width: 50%;
+  margin: 20px auto;
+  border-radius: 10px;
+  transition: height 0.3s ease-out;
+  justify-items: center;
+}
+
+.search-res > p {
+  height: 50px;
+  margin: 0;
+  cursor: pointer;
+}
+
 .keys > p {
   font-size: 1.7rem;
 }

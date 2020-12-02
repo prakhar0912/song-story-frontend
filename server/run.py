@@ -74,13 +74,16 @@ def status():
 @app.route("/artist", methods=["GET"])
 def get_artists():
     name = request.args.get("name")
-    print(name)
 
     r = re.compile("{}*".format(name), re.IGNORECASE)
     search_list = list(filter(r.match, app.artists))
-    print(app.artists)
-    print(search_list)
-    artists = ','.join(search_list)
+    artists = []
+    leng = 10
+    if (len(search_list) < 10):
+        leng = len(search_list)
+    for i in range(leng):
+        artists.append(search_list[i])
+
     return jsonify({
         'artists': artists,
     })
@@ -88,11 +91,9 @@ def get_artists():
 
 @app.route("/prompt", methods=["GET"])
 def get_prompt():
+
     keys = request.args.get("keywords")
     prompt = app.t5.get_prompt(keys, 300)
-    return jsonify({
-        'prompt': prompt
-    })
 
 
 @app.route("/context", methods=["GET"])
@@ -142,4 +143,4 @@ def get_story():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=3000)
+    app.run(debug=True, port=5005)
