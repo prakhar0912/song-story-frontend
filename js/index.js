@@ -1,4 +1,4 @@
-let api = "";
+let api = "http://13.127.82.76";
 let sections = document.querySelectorAll("section");
 sections = [].slice.call(sections, 0).reverse();
 
