@@ -20,7 +20,28 @@
 
 
 ## Instructions to run
-https://tsong.netlify.app
+
+Install the dependencies using
+
+```
+npm install
+```
+
+Download the models using the drive link below and place them in server/models
+
+To run the dev version:
+```
+npm start
+```
+
+To create executables run either of the following according to your platform:
+
+```
+npm run package-mac
+npm run package-linux
+npm run package-win
+```
+You will have your app in the release-builds folder.
 
 ## Contributors
 
