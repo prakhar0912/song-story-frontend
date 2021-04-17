@@ -28,6 +28,7 @@ npm install
 ```
 
 Download the models using the drive link below and place them in server/models
+https://drive.google.com/drive/folders/1i3-l4cfmcCZO36Cst_YOVZY4LaCMQw0k?usp=sharing
 
 To run the dev version:
 ```
