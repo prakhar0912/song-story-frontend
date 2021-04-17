@@ -54,6 +54,7 @@ class App(Flask):
         self.r = Rake()
 
         token = os.getenv("ACCESS_TOKEN")
+        print(token)
 
         # Load lists of artists
         dataset = os.path.join(cur_dir, './data/artists.txt')

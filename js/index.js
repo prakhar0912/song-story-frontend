@@ -8,7 +8,7 @@ let errorScreen = () => {
     let container = document.querySelector('.container')
     container.classList.add('error');
     container.innerHTML = `
-    <h1>There has been some error! Please Reload</h1>
+    <h1>The Server isn't up yet! Please Reload in some time</h1>
     <button onclick="location.reload()">Reload</button>
     `
 }
