@@ -20,7 +20,8 @@
 
 
 ## Instructions to run
-https://tsong.netlify.app
+* Run the backend by following the instructions in the [backend repo](https://github.com/GDGVIT/song-story-backend)
+* Use `serve` or any other tool to run the frontend
 
 ## Contributors
 
