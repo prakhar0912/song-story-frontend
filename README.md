@@ -10,7 +10,7 @@
   [![UI ](https://img.shields.io/badge/User%20Interface-Link%20to%20UI-orange?style=flat-square&logo=appveyor)](INSERT_UI_LINK_HERE)
 
 
-## Functionalities(Not integrated with backend)
+## Functionalities
 - [x]  Generate Story based on prompt
 - [x]  Generate Prompt based on keywords
 - [x]  Generate Keywords based on Artist
@@ -20,6 +20,7 @@
 
 
 ## Instructions to run
+
 
 Install the dependencies using
 
